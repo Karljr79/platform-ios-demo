@@ -36,6 +36,7 @@
     //update button colors
     UIColor *color = [HelperClass getDefaultColor];
     [_buttonSearch setBackgroundColor:color];
+    [_textInputSearch setTintColor:color];
 }
 
 - (IBAction)pressedSearchButton:(id)sender {

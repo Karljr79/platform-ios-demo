@@ -13,6 +13,7 @@
 @interface MainViewController : UIViewController
 
 @property (nonatomic, strong) A0UserProfile *userProfile;
+@property (nonatomic, strong) UIImage *logoImage;
 
 @end
 

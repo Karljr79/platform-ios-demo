@@ -12,6 +12,8 @@
 		862768591DE37160003FF176 /* InitialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 862768581DE37160003FF176 /* InitialViewController.m */; };
 		8627685B1DE3870F003FF176 /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8627685A1DE3870F003FF176 /* Auth0.plist */; };
 		862C0FE41D42A3AB005FD11C /* HelperClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 862C0FE31D42A3AB005FD11C /* HelperClass.m */; };
+		8646E5E71DE63648005F12CE /* image.png in Resources */ = {isa = PBXBuildFile; fileRef = 8646E5E61DE63648005F12CE /* image.png */; };
+		8646E5E91DE643EF005F12CE /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 8646E5E81DE643EF005F12CE /* placeholder.png */; };
 		866D02431D2DB30100987B8F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 866D02421D2DB30100987B8F /* main.m */; };
 		866D02461D2DB30100987B8F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 866D02451D2DB30100987B8F /* AppDelegate.m */; };
 		866D02491D2DB30100987B8F /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 866D02481D2DB30100987B8F /* MainViewController.m */; };
@@ -37,6 +39,8 @@
 		8627685A1DE3870F003FF176 /* Auth0.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Auth0.plist; sourceTree = "<group>"; };
 		862C0FE21D42A3AB005FD11C /* HelperClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelperClass.h; sourceTree = "<group>"; };
 		862C0FE31D42A3AB005FD11C /* HelperClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelperClass.m; sourceTree = "<group>"; };
+		8646E5E61DE63648005F12CE /* image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image.png; sourceTree = "<group>"; };
+		8646E5E81DE643EF005F12CE /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
 		866D023E1D2DB30100987B8F /* boxplatform-photo-tagger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "boxplatform-photo-tagger.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		866D02421D2DB30100987B8F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		866D02441D2DB30100987B8F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -129,7 +133,9 @@
 				866D024A1D2DB30100987B8F /* Main.storyboard */,
 				862768571DE37160003FF176 /* InitialViewController.h */,
 				862768581DE37160003FF176 /* InitialViewController.m */,
+				8646E5E81DE643EF005F12CE /* placeholder.png */,
 				86FEAC0F1DE61DC500D96E42 /* color.png */,
+				8646E5E61DE63648005F12CE /* image.png */,
 				862768551DE370A5003FF176 /* Box-Platform-Logo.png */,
 				866D024D1D2DB30100987B8F /* Assets.xcassets */,
 				866D024F1D2DB30100987B8F /* LaunchScreen.storyboard */,
@@ -242,9 +248,11 @@
 				86062B491D46B3BA0035860D /* config.plist in Resources */,
 				8627685B1DE3870F003FF176 /* Auth0.plist in Resources */,
 				866D02511D2DB30100987B8F /* LaunchScreen.storyboard in Resources */,
+				8646E5E91DE643EF005F12CE /* placeholder.png in Resources */,
 				866D024E1D2DB30100987B8F /* Assets.xcassets in Resources */,
 				866D024C1D2DB30100987B8F /* Main.storyboard in Resources */,
 				862768561DE370A5003FF176 /* Box-Platform-Logo.png in Resources */,
+				8646E5E71DE63648005F12CE /* image.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,9 +13,10 @@
 #import <AFNetworking/AFNetworking.h>
 #import <iOS-Color-Picker/FCColorPickerViewController.h>
 
-@interface InitialViewController () <FCColorPickerViewControllerDelegate>
+@interface InitialViewController () <FCColorPickerViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (nonatomic, copy) UIColor *color;
 @property (weak, nonatomic) IBOutlet UIButton *buttonLogin;
+@property (weak, nonatomic) IBOutlet UIImageView *logoImage;
 
 @end
 
@@ -26,9 +27,13 @@
     // Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"myColor"]) {
+        NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:@"myColor"];
+        [self setColor:[NSKeyedUnarchiver unarchiveObjectWithData:colorData]];
+    }
 }
 
 - (IBAction)presentLoginScreen:(id)sender {
@@ -111,6 +116,30 @@
     [defaults synchronize];
 }
 
+#pragma mark - UIImagePicker
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    UIImage *image = info[UIImagePickerControllerOriginalImage];
+    if (image) {
+        // The user picked an image. Update UI.
+        _logoImage.image = image;
+    }
+}
+
+- (IBAction)didPressLogoSelectButton:(id)sender {
+    // Let the user pick an image from their library.
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    picker.allowsEditing = NO;
+    picker.delegate = self;
+    [self presentViewController:picker animated:YES completion:nil];
+}
+
 
 #pragma mark - Navigation
 
@@ -119,6 +148,9 @@
     if([segue.identifier isEqualToString:@"showProfile"]) {
         MainViewController *destViewController = segue.destinationViewController;
         destViewController.userProfile = sender;
+        if (_logoImage.image) {
+            destViewController.logoImage = _logoImage.image;
+        }
     }}
 
 
