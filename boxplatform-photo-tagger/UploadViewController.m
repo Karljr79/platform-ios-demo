@@ -53,6 +53,13 @@
     [_boxClient setAccessTokenDelegate:self];
 }
 
+- (void) viewWillAppear:(BOOL)animated {
+    //update button colors
+    UIColor *color = [HelperClass getDefaultColor];
+    [_btnTakePhoto setBackgroundColor:color];
+    [_btnSelectImage setBackgroundColor:color];
+}
+
 #pragma mark - Button Handlers
 
 - (IBAction)pressedUploadToBoxButton:(id)sender {

@@ -54,5 +54,11 @@
     return str;
 }
 
++(UIColor*)getDefaultColor {
+    NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:@"myColor"];
+    UIColor *color = [NSKeyedUnarchiver unarchiveObjectWithData:colorData];
+    return color;
+}
+
 @end
 

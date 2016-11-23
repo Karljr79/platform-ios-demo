@@ -22,6 +22,7 @@ PODS:
   - box-ios-sdk/logger (1.0.14)
   - box-ios-sdk/no-arc (1.0.14):
     - box-ios-sdk/logger
+  - iOS-Color-Picker (1.1.4)
   - Lock (1.27.1):
     - Lock/Core (= 1.27.1)
     - Lock/UI (= 1.27.1)
@@ -41,15 +42,17 @@ DEPENDENCIES:
   - AFNetworking
   - box-ios-preview-sdk
   - box-ios-sdk
+  - iOS-Color-Picker
   - Lock (~> 1.27)
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   box-ios-preview-sdk: 1cc287811ae785bccd590aec8673a6a3440015c5
   box-ios-sdk: 8034a7b0fcac562105725afa744011c81da99398
+  iOS-Color-Picker: 0eebf395527785e1ff2180c35b69f6d369051555
   Lock: c8709bb9d798eb2824accd78170140faab1a3fc2
   Masonry: 281802d04d787ea2973179ee8bcb50500579ede2
 
-PODFILE CHECKSUM: 7df54c96d530357cfde6cdd6eff3eb463db065ba
+PODFILE CHECKSUM: 5460ae849dee302af86a770ea10074baf3ff5505
 
 COCOAPODS: 1.0.1

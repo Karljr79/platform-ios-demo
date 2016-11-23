@@ -13,5 +13,6 @@
 
 +(UIViewController*)showAlertWithTitle:(NSString *)title andMessage:(NSString *)message;
 +(NSString*)getBoxAccessToken:(NSString*)auth0Token;
++(UIColor*)getDefaultColor;
 
 @end

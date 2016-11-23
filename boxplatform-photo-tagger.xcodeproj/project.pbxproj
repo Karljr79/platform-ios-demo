@@ -23,6 +23,7 @@
 		86A8FA0E1D2DBDBF0012BD8A /* UploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A8FA0D1D2DBDBF0012BD8A /* UploadViewController.m */; };
 		86A8FA111D2DBEC50012BD8A /* ClarifaiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A8FA101D2DBEC50012BD8A /* ClarifaiClient.m */; };
 		86C9AABC1D3D4C340014E42B /* SearchResultsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C9AABB1D3D4C340014E42B /* SearchResultsTableViewCell.m */; };
+		86FEAC101DE61DC500D96E42 /* color.png in Resources */ = {isa = PBXBuildFile; fileRef = 86FEAC0F1DE61DC500D96E42 /* color.png */; };
 		9E9822C1AC12F54C249A2A1C /* libPods-boxplatform-photo-tagger.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3540BB865CE270EF56A7E52E /* libPods-boxplatform-photo-tagger.a */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +58,7 @@
 		86C9AABA1D3D4C340014E42B /* SearchResultsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultsTableViewCell.h; sourceTree = "<group>"; };
 		86C9AABB1D3D4C340014E42B /* SearchResultsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultsTableViewCell.m; sourceTree = "<group>"; };
 		86D78DCA1DC29AF400271BBB /* boxplatform-photo-tagger.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "boxplatform-photo-tagger.entitlements"; sourceTree = "<group>"; };
+		86FEAC0F1DE61DC500D96E42 /* color.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = color.png; sourceTree = "<group>"; };
 		BC1E7882F4CCB7FB0899FDA8 /* libPods-boxplatform-photo-taggerTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-boxplatform-photo-taggerTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD8AB9C313B05DA3C2B4E5A4 /* Pods-boxplatform-photo-taggerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-boxplatform-photo-taggerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-boxplatform-photo-taggerTests/Pods-boxplatform-photo-taggerTests.release.xcconfig"; sourceTree = "<group>"; };
 		DA437C59B8C65D10E2C5540A /* libPods-boxplatform-photo-taggerUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-boxplatform-photo-taggerUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -127,6 +129,7 @@
 				866D024A1D2DB30100987B8F /* Main.storyboard */,
 				862768571DE37160003FF176 /* InitialViewController.h */,
 				862768581DE37160003FF176 /* InitialViewController.m */,
+				86FEAC0F1DE61DC500D96E42 /* color.png */,
 				862768551DE370A5003FF176 /* Box-Platform-Logo.png */,
 				866D024D1D2DB30100987B8F /* Assets.xcassets */,
 				866D024F1D2DB30100987B8F /* LaunchScreen.storyboard */,
@@ -235,6 +238,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				86FEAC101DE61DC500D96E42 /* color.png in Resources */,
 				86062B491D46B3BA0035860D /* config.plist in Resources */,
 				8627685B1DE3870F003FF176 /* Auth0.plist in Resources */,
 				866D02511D2DB30100987B8F /* LaunchScreen.storyboard in Resources */,

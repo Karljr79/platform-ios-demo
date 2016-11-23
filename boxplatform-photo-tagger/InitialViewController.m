@@ -11,8 +11,11 @@
 #import "HelperClass.h"
 #import <Lock/Lock.h>
 #import <AFNetworking/AFNetworking.h>
+#import <iOS-Color-Picker/FCColorPickerViewController.h>
 
-@interface InitialViewController ()
+@interface InitialViewController () <FCColorPickerViewControllerDelegate>
+@property (nonatomic, copy) UIColor *color;
+@property (weak, nonatomic) IBOutlet UIButton *buttonLogin;
 
 @end
 
@@ -29,6 +32,8 @@
 }
 
 - (IBAction)presentLoginScreen:(id)sender {
+    [self setupAuth0Theme];
+    
     A0Lock *lock = [A0Lock sharedLock];
     
     A0LockViewController *controller = [lock newLockViewController];
@@ -61,6 +66,49 @@
     };
     
     [self presentViewController:controller animated:YES completion:nil];
+}
+
+- (void)setupAuth0Theme {
+    if (_color) {
+        A0Theme *myTheme = [[A0Theme alloc] init];
+        [myTheme registerColor:_color forKey:@"A0ThemePrimaryButtonNormalColor"];
+        [[A0Theme sharedInstance] registerTheme:myTheme];
+    }
+}
+
+
+- (IBAction)chooseNavBarColor:(id)sender {
+    
+    FCColorPickerViewController *colorPicker = [FCColorPickerViewController colorPickerWithColor:self.color
+                                                                                        delegate:self];
+    colorPicker.tintColor = [UIColor whiteColor];
+    [colorPicker setModalPresentationStyle:UIModalPresentationFormSheet];
+    [self presentViewController:colorPicker
+                       animated:YES
+                     completion:nil];
+}
+
+- (void)colorPickerViewController:(FCColorPickerViewController *)colorPicker
+                   didSelectColor:(UIColor *)color
+{
+    self.color = color;
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)colorPickerViewControllerDidCancel:(FCColorPickerViewController *)colorPicker
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)setColor:(UIColor *)color
+{
+    _color = [color copy];
+    [[UINavigationBar appearance] setBarTintColor:_color];
+    [_buttonLogin setBackgroundColor:color];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSData *colorData = [NSKeyedArchiver archivedDataWithRootObject:_color];
+    [defaults setObject:colorData forKey:@"myColor"];
+    [defaults synchronize];
 }
 
 

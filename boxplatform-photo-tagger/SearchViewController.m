@@ -14,6 +14,7 @@
 @interface SearchViewController () <UITextFieldDelegate, BOXAPIAccessTokenDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *textInputSearch;
 @property (strong, nonatomic) NSArray *items;
+@property (weak, nonatomic) IBOutlet UIButton *buttonSearch;
 @property (strong, nonatomic) BOXContentClient *boxClient;
 - (IBAction)pressedSearchButton:(id)sender;
 
@@ -25,10 +26,16 @@
     [super viewDidLoad];
     //set delegate for the text input
     _textInputSearch.delegate = self;
-    
+
     //initialize Box client
     _boxClient = [BOXContentClient clientForNewSession];
     [_boxClient setAccessTokenDelegate:self];
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+    //update button colors
+    UIColor *color = [HelperClass getDefaultColor];
+    [_buttonSearch setBackgroundColor:color];
 }
 
 - (IBAction)pressedSearchButton:(id)sender {

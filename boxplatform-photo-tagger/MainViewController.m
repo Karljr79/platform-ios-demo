@@ -14,6 +14,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *txtUsername;
 @property (weak, nonatomic) IBOutlet UILabel *txtAppUserId;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
+@property (weak, nonatomic) IBOutlet UIButton *buttonSearch;
+@property (weak, nonatomic) IBOutlet UIButton *buttonUpload;
 
 @end
 
@@ -26,11 +28,15 @@
     [self.view addSubview:_spinner];
     [_spinner startAnimating];
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *auth0_token = [defaults objectForKey:@"auth0_token"];
-    
     _txtUsername.text = self.userProfile.name;
     _txtAppUserId.text = [self.userProfile.extraInfo objectForKey:@"box_id"];
 }
+
+-(void)viewWillAppear:(BOOL)animated {
+    UIColor *color = [HelperClass getDefaultColor];
+    [_buttonSearch setBackgroundColor:color];
+    [_buttonUpload setBackgroundColor:color];
+}
+
 
 @end
