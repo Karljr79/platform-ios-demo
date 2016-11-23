@@ -1,0 +1,55 @@
+PODS:
+  - AFNetworking (3.1.0):
+    - AFNetworking/NSURLSession (= 3.1.0)
+    - AFNetworking/Reachability (= 3.1.0)
+    - AFNetworking/Security (= 3.1.0)
+    - AFNetworking/Serialization (= 3.1.0)
+    - AFNetworking/UIKit (= 3.1.0)
+  - AFNetworking/NSURLSession (3.1.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.1.0)
+  - AFNetworking/Security (3.1.0)
+  - AFNetworking/Serialization (3.1.0)
+  - AFNetworking/UIKit (3.1.0):
+    - AFNetworking/NSURLSession
+  - box-ios-preview-sdk (1.0.1):
+    - box-ios-sdk
+  - box-ios-sdk (1.0.14):
+    - box-ios-sdk/logger (= 1.0.14)
+    - box-ios-sdk/no-arc (= 1.0.14)
+  - box-ios-sdk/logger (1.0.14)
+  - box-ios-sdk/no-arc (1.0.14):
+    - box-ios-sdk/logger
+  - Lock (1.27.1):
+    - Lock/Core (= 1.27.1)
+    - Lock/UI (= 1.27.1)
+    - Lock/WebView (= 1.27.1)
+  - Lock/Core (1.27.1):
+    - AFNetworking (~> 3.0)
+  - Lock/CoreUI (1.27.1):
+    - Lock/Core
+    - Masonry (~> 0.6)
+  - Lock/UI (1.27.1):
+    - Lock/CoreUI
+  - Lock/WebView (1.27.1):
+    - Lock/CoreUI
+  - Masonry (0.6.4)
+
+DEPENDENCIES:
+  - AFNetworking
+  - box-ios-preview-sdk
+  - box-ios-sdk
+  - Lock (~> 1.27)
+
+SPEC CHECKSUMS:
+  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  box-ios-preview-sdk: 1cc287811ae785bccd590aec8673a6a3440015c5
+  box-ios-sdk: 8034a7b0fcac562105725afa744011c81da99398
+  Lock: c8709bb9d798eb2824accd78170140faab1a3fc2
+  Masonry: 281802d04d787ea2973179ee8bcb50500579ede2
+
+PODFILE CHECKSUM: 7df54c96d530357cfde6cdd6eff3eb463db065ba
+
+COCOAPODS: 1.0.1

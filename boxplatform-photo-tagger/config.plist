@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>webtaskUrl</key>
+	<string>https://webtask.it.auth0.com/api/run/wt-allenmichaelgrobelny-gmail_com-0/token</string>
+	<key>folderMyPhotoUploads</key>
+	<string>8815657578</string>
+	<key>clarifaiSecret</key>
+	<string>6YBwDBwffiEDJh0o2QVnkNIFbJL3wIZbcnvyQsqZ</string>
+	<key>clarifaiClientId</key>
+	<string>Uj1-OEWZ60HeMAtEBYWwCWAY-YSR_tw4i9JLUTx2</string>
+	<key>boxAppUserId</key>
+	<string>283032981</string>
+	<key>sampleApiUrl</key>
+	<string>https://boxflask-photo-tagger-server-karljr791.c9users.io/api/accesstoken/</string>
+</dict>
+</plist>
