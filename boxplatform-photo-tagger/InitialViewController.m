@@ -25,15 +25,44 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    //check if the user has already set a color in a previous session
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"myColor"]) {
+        NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:@"myColor"];
+        [self setColor:[NSKeyedUnarchiver unarchiveObjectWithData:colorData]];
+    }
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsPath = [paths objectAtIndex:0]; //Get the docs directory
+    NSString *filePath = [documentsPath stringByAppendingPathComponent:@"image.png"];
+    
+    //check if the user has set a custom logo in a pre
+    if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+        NSData *pngData = [NSData dataWithContentsOfFile:filePath];
+        UIImage *image = [UIImage imageWithData:pngData];
+        _logoImage.image = image;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    //check if the user has already set a color in a previous session
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"myColor"]) {
         NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:@"myColor"];
         [self setColor:[NSKeyedUnarchiver unarchiveObjectWithData:colorData]];
     }
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"Logo.png"];
+    
+    //check if the user has set a custom logo in a pre
+    if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+        NSData *pngData = [NSData dataWithContentsOfFile:filePath];
+        UIImage *image = [UIImage imageWithData:pngData];
+        _logoImage.image = image;
+    }
+    
 }
 
 - (IBAction)presentLoginScreen:(id)sender {
@@ -74,6 +103,7 @@
 }
 
 - (void)setupAuth0Theme {
+    //if the user has selected a custom color, apply it to the Auth0 Lock
     if (_color) {
         A0Theme *myTheme = [[A0Theme alloc] init];
         [myTheme registerColor:_color forKey:@"A0ThemePrimaryButtonNormalColor"];
@@ -81,7 +111,7 @@
     }
 }
 
-
+//IBAction to handle the user pressing the custom color button
 - (IBAction)chooseNavBarColor:(id)sender {
     
     FCColorPickerViewController *colorPicker = [FCColorPickerViewController colorPickerWithColor:self.color
@@ -128,6 +158,13 @@
     if (image) {
         // The user picked an image. Update UI.
         _logoImage.image = image;
+        
+        // Create path.
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"Logo.png"];
+        
+        // Save image.
+        [UIImagePNGRepresentation(image) writeToFile:filePath atomically:YES];
     }
 }
 
