@@ -119,6 +119,7 @@
         [self recognizeImage:image];
     }
 }
+
 // Step 1
 - (void)recognizeImage:(UIImage *)image
 {

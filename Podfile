@@ -11,5 +11,6 @@ target 'boxplatform-photo-tagger' do
   pod 'box-ios-preview-sdk'
   pod 'Lock', '~> 1.27'
   pod 'iOS-Color-Picker'
+  pod 'TesseractOCRiOS', '4.0.0'
 
 end

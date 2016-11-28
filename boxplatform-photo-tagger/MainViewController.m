@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *buttonSearch;
 @property (weak, nonatomic) IBOutlet UIButton *buttonUpload;
 @property (weak, nonatomic) IBOutlet UIImageView *imageLogo;
+@property (weak, nonatomic) IBOutlet UIButton *buttonScan;
 
 @end
 
@@ -37,6 +38,7 @@
     UIColor *color = [HelperClass getDefaultColor];
     [_buttonSearch setBackgroundColor:color];
     [_buttonUpload setBackgroundColor:color];
+    [_buttonScan setBackgroundColor:color];
     
     if (_logoImage) {
         _imageLogo.image = _logoImage;

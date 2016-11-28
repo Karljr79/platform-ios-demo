@@ -137,6 +137,7 @@
 
 - (void)setColor:(UIColor *)color
 {
+    //set the selected color and save to NSUserDefaults for subsequent sessions
     _color = [color copy];
     [[UINavigationBar appearance] setBarTintColor:_color];
     [_buttonLogin setBackgroundColor:color];

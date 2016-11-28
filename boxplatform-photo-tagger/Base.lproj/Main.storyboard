@@ -41,8 +41,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b0w-gY-iHh">
-                                <rect key="frame" x="0.0" y="529" width="375" height="46"/>
+                                <rect key="frame" x="0.0" y="491" width="375" height="46"/>
                                 <color key="backgroundColor" red="0.78431373829999995" green="0.78431373829999995" blue="0.78431373829999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="46" id="wPs-Y7-FoP"/>
+                                </constraints>
                                 <state key="normal" title="Upload Photos">
                                     <color key="titleColor" red="1" green="0.99997437000274658" blue="0.99999129772186279" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
@@ -59,10 +62,10 @@
                                 <rect key="frame" x="42" y="104" width="291" height="174"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KYw-fL-JA5">
-                                <rect key="frame" x="0.0" y="452" width="375" height="46"/>
+                                <rect key="frame" x="0.0" y="427" width="375" height="46"/>
                                 <color key="backgroundColor" red="0.78431373829999995" green="0.78431373829999995" blue="0.78431373829999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="46" id="Igq-YG-bV1"/>
+                                    <constraint firstAttribute="height" constant="46" id="ilq-tm-dnv"/>
                                 </constraints>
                                 <state key="normal" title="Search Photos">
                                     <color key="titleColor" red="1" green="0.99997437000274658" blue="0.99999129772186279" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -71,31 +74,47 @@
                                     <segue destination="0PL-5m-TnJ" kind="push" id="YvY-A3-fNy"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sWL-sb-bvd">
+                                <rect key="frame" x="0.0" y="556" width="375" height="46"/>
+                                <color key="backgroundColor" red="0.78431373829999995" green="0.78431373829999995" blue="0.78431373829999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="46" id="uSo-h1-s6X"/>
+                                </constraints>
+                                <state key="normal" title="Scan Documents">
+                                    <color key="titleColor" red="1" green="0.99997437" blue="0.99999129769999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="tbm-Mo-CA1" kind="push" id="obl-VU-VAn"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="sWL-sb-bvd" firstAttribute="top" secondItem="b0w-gY-iHh" secondAttribute="bottom" constant="19" id="49i-08-mQI"/>
                             <constraint firstItem="QbR-jN-bLD" firstAttribute="leading" secondItem="awZ-Jt-THk" secondAttribute="leading" id="4Dl-3H-lC9"/>
-                            <constraint firstItem="KYw-fL-JA5" firstAttribute="top" secondItem="awZ-Jt-THk" secondAttribute="bottom" constant="45" id="D9Y-oy-3er"/>
-                            <constraint firstItem="saT-jC-8wD" firstAttribute="top" secondItem="b0w-gY-iHh" secondAttribute="bottom" constant="92" id="Gjd-Gk-jFe"/>
-                            <constraint firstItem="b0w-gY-iHh" firstAttribute="trailing" secondItem="KYw-fL-JA5" secondAttribute="trailing" id="HBa-ia-pbY"/>
-                            <constraint firstItem="b0w-gY-iHh" firstAttribute="top" secondItem="KYw-fL-JA5" secondAttribute="bottom" constant="31" id="HcU-re-kCk"/>
-                            <constraint firstItem="KYw-fL-JA5" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Inn-u1-azA"/>
-                            <constraint firstItem="b0w-gY-iHh" firstAttribute="leading" secondItem="KYw-fL-JA5" secondAttribute="leading" id="M0B-xK-Eyh"/>
-                            <constraint firstItem="KYw-fL-JA5" firstAttribute="centerX" secondItem="Hki-jI-ayh" secondAttribute="centerX" id="Rdz-bM-mI5"/>
+                            <constraint firstItem="KYw-fL-JA5" firstAttribute="top" secondItem="awZ-Jt-THk" secondAttribute="bottom" constant="20" id="7ML-rL-oNR"/>
+                            <constraint firstItem="KYw-fL-JA5" firstAttribute="trailing" secondItem="b0w-gY-iHh" secondAttribute="trailing" id="Ai0-vh-SIH"/>
+                            <constraint firstItem="KYw-fL-JA5" firstAttribute="centerX" secondItem="Hki-jI-ayh" secondAttribute="centerX" id="FDb-8X-3kM"/>
+                            <constraint firstItem="saT-jC-8wD" firstAttribute="top" secondItem="b0w-gY-iHh" secondAttribute="bottom" constant="130" id="JLR-GZ-HAu"/>
                             <constraint firstItem="QbR-jN-bLD" firstAttribute="top" secondItem="Hki-jI-ayh" secondAttribute="bottom" constant="51" id="WB2-rh-IFK"/>
+                            <constraint firstItem="b0w-gY-iHh" firstAttribute="top" secondItem="KYw-fL-JA5" secondAttribute="bottom" constant="18" id="WmF-us-rUo"/>
+                            <constraint firstItem="sWL-sb-bvd" firstAttribute="trailing" secondItem="b0w-gY-iHh" secondAttribute="trailing" id="Ycj-Jh-Iu1"/>
                             <constraint firstItem="6Bk-lm-40f" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="66" id="cYd-7I-qK2"/>
                             <constraint firstItem="QbR-jN-bLD" firstAttribute="leading" secondItem="rPf-D2-bnd" secondAttribute="trailing" constant="15" id="crb-6q-IrV"/>
                             <constraint firstItem="rPf-D2-bnd" firstAttribute="trailing" secondItem="6Bk-lm-40f" secondAttribute="trailing" id="g4n-lh-RJc"/>
                             <constraint firstItem="rPf-D2-bnd" firstAttribute="top" secondItem="Hki-jI-ayh" secondAttribute="bottom" constant="51" id="gFw-DI-21N"/>
+                            <constraint firstItem="KYw-fL-JA5" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="m8o-DX-8OR"/>
                             <constraint firstItem="Hki-jI-ayh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="26" id="pGK-iq-6ZF"/>
                             <constraint firstItem="6Bk-lm-40f" firstAttribute="baseline" secondItem="awZ-Jt-THk" secondAttribute="baseline" id="qSA-Zv-onA"/>
                             <constraint firstItem="Hki-jI-ayh" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="rl9-5e-WnW"/>
                             <constraint firstItem="Hki-jI-ayh" firstAttribute="top" secondItem="AYG-aa-ASp" secondAttribute="bottom" constant="40" id="wWA-IO-mcH"/>
-                            <constraint firstAttribute="bottom" secondItem="KYw-fL-JA5" secondAttribute="bottom" constant="169" id="xwF-x5-YXV"/>
+                            <constraint firstItem="KYw-fL-JA5" firstAttribute="leading" secondItem="b0w-gY-iHh" secondAttribute="leading" id="zHf-d4-bqh"/>
+                            <constraint firstItem="sWL-sb-bvd" firstAttribute="leading" secondItem="b0w-gY-iHh" secondAttribute="leading" id="zvM-UU-E0i"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Welcome" id="3gC-Mb-kw8"/>
                     <connections>
+                        <outlet property="buttonScan" destination="sWL-sb-bvd" id="g7C-3u-XVv"/>
                         <outlet property="buttonSearch" destination="KYw-fL-JA5" id="KpT-Lj-P6r"/>
                         <outlet property="buttonUpload" destination="b0w-gY-iHh" id="VX6-Cb-ciA"/>
                         <outlet property="imageLogo" destination="Hki-jI-ayh" id="B6e-Qp-QLh"/>
@@ -107,7 +126,7 @@
             </objects>
             <point key="canvasLocation" x="469.5" y="411.5"/>
         </scene>
-        <!--Welcome-->
+        <!--Get Started-->
         <scene sceneID="srY-GM-mu9">
             <objects>
                 <viewController id="ohL-NP-gmA" customClass="InitialViewController" sceneMemberID="viewController">
@@ -175,7 +194,7 @@
                             <constraint firstItem="ir3-iz-OBN" firstAttribute="leading" secondItem="SCW-tI-YmP" secondAttribute="leading" id="y8I-LZ-wgk"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Welcome" id="OZq-L3-Zf0"/>
+                    <navigationItem key="navigationItem" title="Get Started" id="OZq-L3-Zf0"/>
                     <connections>
                         <outlet property="buttonLogin" destination="Aw1-kv-DFd" id="QvO-aR-kEz"/>
                         <outlet property="logoImage" destination="ir3-iz-OBN" id="AUX-lv-kOk"/>
@@ -368,6 +387,89 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V2h-Ua-fhr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1297.5" y="866.5"/>
+        </scene>
+        <!--Scan Document-->
+        <scene sceneID="Pnk-Am-CEQ">
+            <objects>
+                <viewController id="tbm-Mo-CA1" customClass="ScanViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hln-7t-V9H"/>
+                        <viewControllerLayoutGuide type="bottom" id="lqT-gx-SK7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bZR-LI-B9d">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aGV-a3-DX9">
+                                <rect key="frame" x="92" y="451" width="192" height="34"/>
+                                <color key="backgroundColor" red="0.78431373829999995" green="0.78431373829999995" blue="0.78431373829999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="34" id="eUn-gz-OFq"/>
+                                </constraints>
+                                <state key="normal" title="Scan Using Camera">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="didPressScanButton:" destination="tbm-Mo-CA1" eventType="touchUpInside" id="Tnd-Uk-owG"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jdt-Op-v3h">
+                                <rect key="frame" x="92" y="508" width="192" height="34"/>
+                                <color key="backgroundColor" red="0.78431373829999995" green="0.78431373829999995" blue="0.78431373829999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="34" id="cvv-s7-oSA"/>
+                                </constraints>
+                                <state key="normal" title="Select Image">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="didPressImageSelectButton:" destination="tbm-Mo-CA1" eventType="touchUpInside" id="klw-zO-tyP"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Select or take photo to see results here..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="RrO-lS-2tZ">
+                                <rect key="frame" x="67" y="95" width="240" height="292"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="BJs-Wc-FTf">
+                                <rect key="frame" x="178" y="345" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="lqT-gx-SK7" firstAttribute="top" secondItem="Jdt-Op-v3h" secondAttribute="bottom" constant="125" id="6Ur-6j-gvV"/>
+                            <constraint firstItem="aGV-a3-DX9" firstAttribute="top" secondItem="RrO-lS-2tZ" secondAttribute="bottom" constant="64" id="Bz0-LH-yGL"/>
+                            <constraint firstItem="RrO-lS-2tZ" firstAttribute="leading" secondItem="bZR-LI-B9d" secondAttribute="leadingMargin" constant="51" id="EBF-q6-l08"/>
+                            <constraint firstItem="RrO-lS-2tZ" firstAttribute="centerX" secondItem="bZR-LI-B9d" secondAttribute="centerX" id="Nqf-cS-lXp"/>
+                            <constraint firstItem="Jdt-Op-v3h" firstAttribute="top" secondItem="aGV-a3-DX9" secondAttribute="bottom" constant="23" id="Tsr-Ic-00H"/>
+                            <constraint firstItem="aGV-a3-DX9" firstAttribute="top" secondItem="BJs-Wc-FTf" secondAttribute="bottom" constant="86" id="Xnz-70-TGn"/>
+                            <constraint firstItem="aGV-a3-DX9" firstAttribute="centerX" secondItem="bZR-LI-B9d" secondAttribute="centerX" id="elY-wH-LdJ"/>
+                            <constraint firstItem="aGV-a3-DX9" firstAttribute="leading" secondItem="Jdt-Op-v3h" secondAttribute="leading" id="fZv-Ka-cXr"/>
+                            <constraint firstItem="aGV-a3-DX9" firstAttribute="trailing" secondItem="Jdt-Op-v3h" secondAttribute="trailing" id="g4n-dd-xmp"/>
+                            <constraint firstItem="aGV-a3-DX9" firstAttribute="leading" secondItem="bZR-LI-B9d" secondAttribute="leadingMargin" constant="76" id="ld6-E4-YN3"/>
+                            <constraint firstItem="RrO-lS-2tZ" firstAttribute="top" secondItem="hln-7t-V9H" secondAttribute="bottom" constant="31" id="mbo-ge-6qS"/>
+                            <constraint firstItem="BJs-Wc-FTf" firstAttribute="centerX" secondItem="aGV-a3-DX9" secondAttribute="centerX" id="pmW-lX-YP0"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Scan Document" id="WKA-W8-Hlg">
+                        <barButtonItem key="rightBarButtonItem" title="Upload" id="PQd-85-LcR">
+                            <connections>
+                                <action selector="didPressUploadToBoxButton:" destination="tbm-Mo-CA1" id="Poc-KA-cIB"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="activityIndicator" destination="BJs-Wc-FTf" id="clh-Fw-onl"/>
+                        <outlet property="btnScanUsingCamera" destination="aGV-a3-DX9" id="kaS-3w-8f5"/>
+                        <outlet property="btnSelectImage" destination="Jdt-Op-v3h" id="eu2-N7-jDG"/>
+                        <outlet property="btnUpload" destination="PQd-85-LcR" id="1dG-Xa-GgY"/>
+                        <outlet property="textOCRData" destination="RrO-lS-2tZ" id="nEQ-ql-5Zh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="M05-AY-xUd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="469.5" y="1543.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ZWY-Wa-NZ3">

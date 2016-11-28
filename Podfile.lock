@@ -37,6 +37,7 @@ PODS:
   - Lock/WebView (1.27.1):
     - Lock/CoreUI
   - Masonry (0.6.4)
+  - TesseractOCRiOS (4.0.0)
 
 DEPENDENCIES:
   - AFNetworking
@@ -44,6 +45,7 @@ DEPENDENCIES:
   - box-ios-sdk
   - iOS-Color-Picker
   - Lock (~> 1.27)
+  - TesseractOCRiOS (= 4.0.0)
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
@@ -52,7 +54,8 @@ SPEC CHECKSUMS:
   iOS-Color-Picker: 0eebf395527785e1ff2180c35b69f6d369051555
   Lock: c8709bb9d798eb2824accd78170140faab1a3fc2
   Masonry: 281802d04d787ea2973179ee8bcb50500579ede2
+  TesseractOCRiOS: 90638afbe43d082433f2e76b384c7901d23956df
 
-PODFILE CHECKSUM: 5460ae849dee302af86a770ea10074baf3ff5505
+PODFILE CHECKSUM: 17e530485c34763f0e1cc78635c1bff28112b059
 
 COCOAPODS: 1.0.1
