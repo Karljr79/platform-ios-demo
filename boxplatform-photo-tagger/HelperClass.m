@@ -60,5 +60,14 @@
     return color;
 }
 
++(NSString*)getFileNameWithBaseName:(NSString*)baseName andExtension:(NSString*)extension {
+    //add a timestamp to the file name to avoid duplicate file names
+    NSString *prefixString = baseName;
+    time_t unixTime = (time_t) [[NSDate date] timeIntervalSince1970];
+    NSString *timestamp = [NSString stringWithFormat:@"%ld", unixTime];
+    NSString *fileName = [NSString stringWithFormat:@"%@_%@.%@", prefixString, timestamp, extension];
+    return fileName;
+}
+
 @end
 

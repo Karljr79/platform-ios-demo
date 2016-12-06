@@ -21,8 +21,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnScanUsingCamera;
 @property (weak, nonatomic) IBOutlet UIButton *btnSelectImage;
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
-@property (weak, nonatomic) NSString *ocrText;
+@property (strong, nonatomic) NSString *ocrText;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (strong, nonatomic) NSData *imageToUpload;
 
 @property (strong, nonatomic) BOXContentClient *boxClient;
 
@@ -35,6 +36,8 @@
     
     // Create a queue to perform recognition operations
     self.operationQueue = [[NSOperationQueue alloc] init];
+    
+    [self.activityIndicator setHidden:TRUE];
     
     //set the upload button to be disabled
     _btnUpload.enabled = FALSE;
@@ -85,6 +88,64 @@
 }
 
 - (IBAction)didPressUploadToBoxButton:(id)sender {
+    if(_imageToUpload){
+        [self uploadPhotoToBox:_imageToUpload];
+    } else {
+        NSLog(@"Error: No Image Found");
+        UIViewController *alert = [HelperClass showAlertWithTitle:@"Error" andMessage:@"Sorry, there was an error recognizing the image"];
+        [self.navigationController presentViewController:alert animated:YES completion:nil];
+    }
+}
+
+// Step 2 handle uploading the photo file to Box
+- (void)uploadPhotoToBox:(NSData*)image {
+    //start the spinner
+    //[_spinner startAnimating];
+    
+    //    //add a timestamp to the file name to avoid duplicate file names
+    //    NSString *prefixString = @"BoxPlatformUpload";
+    //    time_t unixTime = (time_t) [[NSDate date] timeIntervalSince1970];
+    //    NSString *timestamp = [NSString stringWithFormat:@"%ld", unixTime];
+    //    NSString *fileName = [NSString stringWithFormat:@"%@_%@.jpg", prefixString, timestamp];
+    
+    NSString *fileName = [HelperClass getFileNameWithBaseName:@"BoxPlatformPhotoUpload" andExtension:@"jpg"];
+    
+    //prepare the request.  Folder ID is hard coded for demo purposes.  Ideally you would have
+    //a defined folder structure for each app user and use that to determine where images should be uploaded to
+    BOXFileUploadRequest *request = [_boxClient fileUploadRequestToFolderWithID:@"0" fromData:image fileName:fileName];
+    
+    //send the request
+    [request performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
+    } completion:^(BOXFile *file, NSError *error) {
+        if (error) {
+            NSLog(@"Error: %@", error);
+            UIViewController *alert = [HelperClass showAlertWithTitle:@"Error" andMessage:@"Sorry, there was an error uploading the file"];
+            [self.navigationController presentViewController:alert animated:YES completion:nil];
+        } else {
+            //[_spinner stopAnimating];
+            NSLog(@"Successfully uploaded file ID: %@", file.modelID);
+            
+            //now that the upload was successful, set the ocr data for the returned file id
+            [self setBoxMetadataWithFileId:file.modelID];
+        }
+    }];
+}
+
+// Step 3 handle setting the metadata tags
+- (void)setBoxMetadataWithFileId:(NSString*)fileId {
+    BOXMetadataKeyValue *task = [[BOXMetadataKeyValue alloc] initWithPath:@"ocrpage1" value:_ocrText];
+    BOXMetadataKeyValue *task2 = [[BOXMetadataKeyValue alloc] initWithPath:@"ocrversion" value:@"Tesseract"];
+    NSArray *tasks = [[NSArray alloc] initWithObjects:task, task2, nil];
+    BOXMetadataCreateRequest *metadataCreateRequest = [_boxClient metadataCreateRequestWithFileID:fileId scope:@"enterprise" template:@"ocrdata" tasks:tasks];
+    [metadataCreateRequest performRequestWithCompletion:^(BOXMetadata *metadata, NSError *error){
+        if(error){
+            NSLog(@"Error Setting Metadata: %@", error);
+        } else {
+            NSString *str = [_ocrText substringToIndex: 100];
+            UIViewController *alert = [HelperClass showAlertWithTitle:[NSString stringWithFormat:@"File ID: %@", fileId] andMessage:[NSString stringWithFormat:@"OCR Text: %@", _ocrText]];
+            [self.navigationController presentViewController:alert animated:YES completion:nil];
+        }
+    }];
 }
 
 -(void)recognizeImageWithTesseract:(UIImage *)image {
@@ -120,16 +181,10 @@
         
         // Remove the animated progress activity indicator
         [self.activityIndicator stopAnimating];
-        
-//        // Spawn an alert with the recognized text
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"OCR Result"
-//                                                        message:recognizedText
-//                                                       delegate:nil
-//                                              cancelButtonTitle:@"OK"
-//                                              otherButtonTitles:nil];
-//        [alert show];
+        [self.activityIndicator setHidden:TRUE];
         
         _textOCRData.text = recognizedText;
+        _ocrText = recognizedText;
         
         NSUInteger count = recognizedText.length;
         NSLog(@"Count: %lu", (unsigned long)count);
@@ -138,6 +193,7 @@
     // Finally, add the recognition operation to the queue
     [self.operationQueue addOperation:operation];
 }
+
 
 #pragma mark - UIImagePicker
 
@@ -148,8 +204,12 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     [self dismissViewControllerAnimated:YES completion:nil];
     UIImage *image = info[UIImagePickerControllerOriginalImage];
+    // Encode as a JPEG.
+    _imageToUpload = UIImageJPEGRepresentation(image, 1.0);
     //send image to OCR recognition
     [self recognizeImageWithTesseract:image];
+    //enable button
+    _btnUpload.enabled = TRUE;
 }
 
 
