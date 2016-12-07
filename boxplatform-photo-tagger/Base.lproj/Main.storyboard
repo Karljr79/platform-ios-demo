@@ -356,8 +356,7 @@
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="pressedSelectImageButton:" destination="1ju-Y5-qXj" eventType="touchUpInside" id="cPk-TM-Qef"/>
-                                    <action selector="pressedTakePhotoButton:" destination="1ju-Y5-qXj" eventType="touchUpInside" id="wSd-NC-IW5"/>
+                                    <action selector="pressedTakePhotoButton:" destination="1ju-Y5-qXj" eventType="touchUpInside" id="Wei-xI-azt"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -411,7 +410,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="didPressScanButton:" destination="tbm-Mo-CA1" eventType="touchUpInside" id="Tnd-Uk-owG"/>
+                                    <action selector="didPressScanButton:" destination="tbm-Mo-CA1" eventType="touchUpInside" id="kkf-mv-P6g"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jdt-Op-v3h">
