@@ -23,8 +23,10 @@
 		866F05131DECBE1000FBFB8B /* ScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 866F05121DECBE1000FBFB8B /* ScanViewController.m */; };
 		868610F11D3039610054F11D /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 868610F01D3039610054F11D /* SearchViewController.m */; };
 		868610F51D30535E0054F11D /* SearchResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 868610F41D30535E0054F11D /* SearchResultsTableViewController.m */; };
+		869B1A2A1E0079FB0072BBA6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 869B1A291E0079FB0072BBA6 /* CoreLocation.framework */; };
 		86A8FA0E1D2DBDBF0012BD8A /* UploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A8FA0D1D2DBDBF0012BD8A /* UploadViewController.m */; };
 		86A8FA111D2DBEC50012BD8A /* ClarifaiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A8FA101D2DBEC50012BD8A /* ClarifaiClient.m */; };
+		86B6FBAF1E0209E8009DA293 /* FileDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B6FBAE1E0209E8009DA293 /* FileDetailsViewController.m */; };
 		86C9AABC1D3D4C340014E42B /* SearchResultsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C9AABB1D3D4C340014E42B /* SearchResultsTableViewCell.m */; };
 		86FBAC401DECDD430007767D /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = 86FBAC3F1DECDD430007767D /* tessdata */; };
 		86FEAC101DE61DC500D96E42 /* color.png in Resources */ = {isa = PBXBuildFile; fileRef = 86FEAC0F1DE61DC500D96E42 /* color.png */; };
@@ -59,10 +61,13 @@
 		868610F01D3039610054F11D /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		868610F31D30535E0054F11D /* SearchResultsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultsTableViewController.h; sourceTree = "<group>"; };
 		868610F41D30535E0054F11D /* SearchResultsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultsTableViewController.m; sourceTree = "<group>"; };
+		869B1A291E0079FB0072BBA6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		86A8FA0C1D2DBDBF0012BD8A /* UploadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadViewController.h; sourceTree = "<group>"; };
 		86A8FA0D1D2DBDBF0012BD8A /* UploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadViewController.m; sourceTree = "<group>"; };
 		86A8FA0F1D2DBEC50012BD8A /* ClarifaiClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClarifaiClient.h; sourceTree = "<group>"; };
 		86A8FA101D2DBEC50012BD8A /* ClarifaiClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClarifaiClient.m; sourceTree = "<group>"; };
+		86B6FBAD1E0209E8009DA293 /* FileDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileDetailsViewController.h; sourceTree = "<group>"; };
+		86B6FBAE1E0209E8009DA293 /* FileDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileDetailsViewController.m; sourceTree = "<group>"; };
 		86C9AABA1D3D4C340014E42B /* SearchResultsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultsTableViewCell.h; sourceTree = "<group>"; };
 		86C9AABB1D3D4C340014E42B /* SearchResultsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultsTableViewCell.m; sourceTree = "<group>"; };
 		86D78DCA1DC29AF400271BBB /* boxplatform-photo-tagger.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "boxplatform-photo-tagger.entitlements"; sourceTree = "<group>"; };
@@ -82,6 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				869B1A2A1E0079FB0072BBA6 /* CoreLocation.framework in Frameworks */,
 				9E9822C1AC12F54C249A2A1C /* libPods-boxplatform-photo-tagger.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -137,6 +143,8 @@
 				86A8FA0C1D2DBDBF0012BD8A /* UploadViewController.h */,
 				86A8FA0D1D2DBDBF0012BD8A /* UploadViewController.m */,
 				866D024A1D2DB30100987B8F /* Main.storyboard */,
+				86B6FBAD1E0209E8009DA293 /* FileDetailsViewController.h */,
+				86B6FBAE1E0209E8009DA293 /* FileDetailsViewController.m */,
 				866F05111DECBE1000FBFB8B /* ScanViewController.h */,
 				866F05121DECBE1000FBFB8B /* ScanViewController.m */,
 				862768571DE37160003FF176 /* InitialViewController.h */,
@@ -166,6 +174,7 @@
 		D3650145F9C1D471D031F8A7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				869B1A291E0079FB0072BBA6 /* CoreLocation.framework */,
 				3540BB865CE270EF56A7E52E /* libPods-boxplatform-photo-tagger.a */,
 				BC1E7882F4CCB7FB0899FDA8 /* libPods-boxplatform-photo-taggerTests.a */,
 				DA437C59B8C65D10E2C5540A /* libPods-boxplatform-photo-taggerUITests.a */,
@@ -331,6 +340,7 @@
 				866D02431D2DB30100987B8F /* main.m in Sources */,
 				868610F11D3039610054F11D /* SearchViewController.m in Sources */,
 				86A8FA111D2DBEC50012BD8A /* ClarifaiClient.m in Sources */,
+				86B6FBAF1E0209E8009DA293 /* FileDetailsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

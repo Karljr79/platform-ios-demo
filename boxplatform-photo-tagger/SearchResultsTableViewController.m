@@ -111,7 +111,19 @@
             NSLog(@"Error: %@", error);
         } else {
             BOXMetadata *md = metadata[0];
-            UIViewController *alert = [HelperClass showAlertWithTitle:[NSString stringWithFormat:@"File ID: %@", self.selectedItemId] andMessage:[NSString stringWithFormat:@"Metadata: %@", md.info[@"tags"]]];
+            NSString *mdText;
+            
+            //be sure we are displaying the correct metadata
+            if (md.info[@"tags"]){
+                //photo tags
+                mdText = md.info[@"tags"];
+            } else if (md.info[@"ocrpage1"]) {
+                //OCR scanning
+                mdText = md.info[@"ocrpage1"];
+            }
+            
+            //show alert with metadata values. TBD - replace with file details view controller
+            UIViewController *alert = [HelperClass showAlertWithTitle:[NSString stringWithFormat:@"File ID: %@", self.selectedItemId] andMessage:[NSString stringWithFormat:@"Metadata: %@", mdText]];
             [self.navigationController presentViewController:alert animated:YES completion:nil];
         }
     }];

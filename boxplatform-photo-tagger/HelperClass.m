@@ -54,12 +54,14 @@
     return str;
 }
 
+//Helper Method to get the default UI color
 +(UIColor*)getDefaultColor {
     NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:@"myColor"];
     UIColor *color = [NSKeyedUnarchiver unarchiveObjectWithData:colorData];
     return color;
 }
 
+//Helper Method to generate file names
 +(NSString*)getFileNameWithBaseName:(NSString*)baseName andExtension:(NSString*)extension {
     //add a timestamp to the file name to avoid duplicate file names
     NSString *prefixString = baseName;

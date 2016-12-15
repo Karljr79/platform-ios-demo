@@ -108,7 +108,7 @@
     //    NSString *timestamp = [NSString stringWithFormat:@"%ld", unixTime];
     //    NSString *fileName = [NSString stringWithFormat:@"%@_%@.jpg", prefixString, timestamp];
     
-    NSString *fileName = [HelperClass getFileNameWithBaseName:@"BoxPlatformPhotoUpload" andExtension:@"jpg"];
+    NSString *fileName = [HelperClass getFileNameWithBaseName:@"BoxPlatformPhotoScan" andExtension:@"jpg"];
     
     //prepare the request.  Folder ID is hard coded for demo purposes.  Ideally you would have
     //a defined folder structure for each app user and use that to determine where images should be uploaded to

@@ -10,21 +10,26 @@
 #import "ClarifaiClient.h"
 #import "HelperClass.h"
 #import <BoxContentSDK/BoxContentSDK.h>
+#import <CoreLocation/CoreLocation.h>
 
-#define INSURANCE_MODE False
-
-@interface UploadViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, BOXAPIAccessTokenDelegate>
+@interface UploadViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, BOXAPIAccessTokenDelegate, CLLocationManagerDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIButton *btnSelectImage;
 @property (weak, nonatomic) IBOutlet UIButton *btnTakePhoto;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *btnUploadToBox;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (strong, nonatomic) NSString *tags;
+@property (strong, nonatomic) NSString *address;
+@property (strong, nonatomic) NSString *latitude;
+@property (strong, nonatomic) NSString *longitude;
 @property (strong, nonatomic) NSData *imageToUpload;
-
 @property (strong, nonatomic) BOXContentClient *boxClient;
 @property (strong, nonatomic) ClarifaiClient *clarifaiClient;
-
+//Location services variables
+@property (strong, nonatomic) CLLocationManager *locationManager;
+@property (strong, nonatomic) CLGeocoder *geocoder;
+@property (strong, nonatomic) CLPlacemark *placemark;
+//Button callbacks
 - (IBAction)pressedUploadToBoxButton:(id)sender;
 - (IBAction)pressedSelectImageButton:(id)sender;
 - (IBAction)pressedTakePhotoButton:(id)sender;
@@ -36,12 +41,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //grab Clarifai creds from config.plist
+    //init location manager
+    _locationManager = [[CLLocationManager alloc] init];
+    _geocoder = [[CLGeocoder alloc] init];
+    
     //grab contents of config.plist
     NSURL *file = [[NSBundle mainBundle] URLForResource:@"config" withExtension:@"plist"];
     NSDictionary *plistContent = [NSDictionary dictionaryWithContentsOfURL:file];
     
-    //grab hard-coded app user id from the config.plist
+    //grab Clarifai creds from config.plist
     NSString *clarifaiClientId = [plistContent objectForKey:@"clarifaiClientId"];
     NSString *clarifaiSecret = [plistContent objectForKey:@"clarifaiSecret"];
     
@@ -51,6 +59,9 @@
     //initialize the Box client
     _boxClient = [BOXContentClient clientForNewSession];
     [_boxClient setAccessTokenDelegate:self];
+    
+    //update location
+    [self getCurrentLocation];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -154,12 +165,7 @@
     //start the spinner
     [_spinner startAnimating];
     
-//    //add a timestamp to the file name to avoid duplicate file names
-//    NSString *prefixString = @"BoxPlatformUpload";
-//    time_t unixTime = (time_t) [[NSDate date] timeIntervalSince1970];
-//    NSString *timestamp = [NSString stringWithFormat:@"%ld", unixTime];
-//    NSString *fileName = [NSString stringWithFormat:@"%@_%@.jpg", prefixString, timestamp];
-    
+    //generate filename
     NSString *fileName = [HelperClass getFileNameWithBaseName:@"BoxPlatformPhotoUpload" andExtension:@"jpg"];
     
     //prepare the request.  Folder ID is hard coded for demo purposes.  Ideally you would have
@@ -209,6 +215,50 @@
     UIGraphicsEndImageContext();
     
     return scaledImage;
+}
+
+- (void)getCurrentLocation {
+    _locationManager.delegate = self;
+    _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [_locationManager requestWhenInUseAuthorization];
+    
+    [_locationManager startUpdatingLocation];
+}
+
+#pragma mark - CLLocationManagerDelegate
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    NSLog(@"didFailWithError: %@", error);
+    UIViewController *errorAlert = [HelperClass showAlertWithTitle:[NSString stringWithFormat:@"Error"] andMessage:[NSString stringWithFormat:@"Failed to Get Your Location"]];
+    [self.navigationController presentViewController:errorAlert animated:YES completion:nil];}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+    NSLog(@"didUpdateToLocation: %@", newLocation);
+    CLLocation *currentLocation = newLocation;
+    
+    // Stop Location Manager
+    [_locationManager stopUpdatingLocation];
+    
+    _latitude = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.latitude];
+    _longitude = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.longitude];
+    
+    // Reverse Geocoding
+    NSLog(@"Resolving the Address");
+    [_geocoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+        NSLog(@"Found address: %@, error: %@", placemarks, error);
+        if (error == nil && [placemarks count] > 0) {
+            _placemark = [placemarks lastObject];
+            _address = [NSString stringWithFormat:@"%@ %@\n%@ %@\n%@\n%@",
+                                 _placemark.subThoroughfare, _placemark.thoroughfare,
+                                 _placemark.postalCode, _placemark.locality,
+                                 _placemark.administrativeArea,
+                                 _placemark.country];
+        } else {
+            NSLog(@"%@", error.debugDescription);
+        }
+    } ];
 }
 
 
