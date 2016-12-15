@@ -9,6 +9,7 @@
 #import "UploadViewController.h"
 #import "ClarifaiClient.h"
 #import "HelperClass.h"
+#import "FileDetailsViewController.h"
 #import <BoxContentSDK/BoxContentSDK.h>
 #import <CoreLocation/CoreLocation.h>
 
@@ -23,10 +24,12 @@
 @property (strong, nonatomic) NSString *latitude;
 @property (strong, nonatomic) NSString *longitude;
 @property (strong, nonatomic) NSData *imageToUpload;
+@property (strong, nonatomic) BOXFile *boxFile;
 @property (strong, nonatomic) BOXContentClient *boxClient;
 @property (strong, nonatomic) ClarifaiClient *clarifaiClient;
 //Location services variables
 @property (strong, nonatomic) CLLocationManager *locationManager;
+@property (strong, nonatomic) CLLocation *location;
 @property (strong, nonatomic) CLGeocoder *geocoder;
 @property (strong, nonatomic) CLPlacemark *placemark;
 //Button callbacks
@@ -44,6 +47,12 @@
     //init location manager
     _locationManager = [[CLLocationManager alloc] init];
     _geocoder = [[CLGeocoder alloc] init];
+    
+    //init defaul values for gps data
+    _latitude = @"None";
+    _longitude = @"None";
+    _address = @"Not Found";
+    
     
     //grab contents of config.plist
     NSURL *file = [[NSBundle mainBundle] URLForResource:@"config" withExtension:@"plist"];
@@ -182,7 +191,7 @@
         } else {
             [_spinner stopAnimating];
             NSLog(@"Successfully uploaded file ID: %@", file.modelID);
-        
+            _boxFile = file;
             //now that the upload was successful, set the metadata for the returned file id
             [self setBoxMetadataWithFileId:file.modelID];
         }
@@ -191,21 +200,28 @@
 
 // Step 3 handle setting the metadata tags
 - (void)setBoxMetadataWithFileId:(NSString*)fileId {
+    //create array of metadata tasks
     BOXMetadataKeyValue *task = [[BOXMetadataKeyValue alloc] initWithPath:@"tags" value:_tags];
     BOXMetadataKeyValue *task2 = [[BOXMetadataKeyValue alloc] initWithPath:@"imageRecognitionVersion" value:@"Clarifai"];
-    NSArray *tasks = [[NSArray alloc] initWithObjects:task, task2, nil];
+    BOXMetadataKeyValue *task3 = [[BOXMetadataKeyValue alloc] initWithPath:@"gpslatlong" value:[NSString stringWithFormat:@"%@ , %@", _latitude, _longitude]];
+    BOXMetadataKeyValue *task4 = [[BOXMetadataKeyValue alloc] initWithPath:@"gpsaddress" value:_address];
+    NSArray *tasks = [[NSArray alloc] initWithObjects:task, task2, task3, task4, nil];
+    //create metadata request
     BOXMetadataCreateRequest *metadataCreateRequest = [_boxClient metadataCreateRequestWithFileID:fileId scope:@"enterprise" template:@"photouploads" tasks:tasks];
     [metadataCreateRequest performRequestWithCompletion:^(BOXMetadata *metadata, NSError *error){
         if(error){
             NSLog(@"Error Setting Metadata: %@", error);
         } else {
-            UIViewController *alert = [HelperClass showAlertWithTitle:[NSString stringWithFormat:@"File ID: %@", fileId] andMessage:[NSString stringWithFormat:@"Metadata: %@", _tags]];
-            [self.navigationController presentViewController:alert animated:YES completion:nil];
+//            UIViewController *alert = [HelperClass showAlertWithTitle:[NSString stringWithFormat:@"File ID: %@", fileId] andMessage:[NSString stringWithFormat:@"Metadata: %@", _tags]];
+//            [self.navigationController presentViewController:alert animated:YES completion:nil];
+            
+              [self performSegueWithIdentifier:@"UploadFileDetails" sender:self];
+
         }
     }];
 }
 
-
+//helper function to scale down the image for transit to Clarifai
 -(UIImage*)scaleDownImage:(UIImage *)image
 {
     CGSize size = CGSizeMake(320, 320 * image.size.height / image.size.width);
@@ -217,6 +233,7 @@
     return scaledImage;
 }
 
+//helper function to get the user's location
 - (void)getCurrentLocation {
     _locationManager.delegate = self;
     _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
@@ -236,17 +253,17 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
     NSLog(@"didUpdateToLocation: %@", newLocation);
-    CLLocation *currentLocation = newLocation;
+    _location = newLocation;
     
     // Stop Location Manager
     [_locationManager stopUpdatingLocation];
     
-    _latitude = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.latitude];
-    _longitude = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.longitude];
+    _latitude = [NSString stringWithFormat:@"%.8f", _location.coordinate.latitude];
+    _longitude = [NSString stringWithFormat:@"%.8f", _location.coordinate.longitude];
     
     // Reverse Geocoding
     NSLog(@"Resolving the Address");
-    [_geocoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+    [_geocoder reverseGeocodeLocation:_location completionHandler:^(NSArray *placemarks, NSError *error) {
         NSLog(@"Found address: %@, error: %@", placemarks, error);
         if (error == nil && [placemarks count] > 0) {
             _placemark = [placemarks lastObject];
@@ -256,7 +273,7 @@
                                  _placemark.administrativeArea,
                                  _placemark.country];
         } else {
-            NSLog(@"%@", error.debugDescription);
+            NSLog(@"Error getting address: %@", error.debugDescription);
         }
     } ];
 }
@@ -270,6 +287,19 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSLog(@"Box Access token is: %@", [defaults objectForKey:@"box_access_token"]);
     completion([defaults objectForKey:@"box_access_token"], [NSDate dateWithTimeIntervalSinceNow:100], nil);
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"UploadFileDetails"])
+    {
+        FileDetailsViewController *fvc = [segue destinationViewController];
+        //pass the file to the next view
+        fvc.boxFile = _boxFile;
+        fvc.placemark = _placemark;
+        fvc.image = _imageView.image;
+        fvc.location = _location;
+    }
 }
 
 @end

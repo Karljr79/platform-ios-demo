@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <BoxContentSDK/BoxContentSDK.h>
+#import <CoreLocation/CoreLocation.h>
 
 @interface FileDetailsViewController : UIViewController
-
-
+@property (strong, nonatomic) BOXFile* boxFile;
+@property (strong, nonatomic) CLPlacemark *placemark;
+@property (strong, nonatomic) CLLocation *location;
+@property (strong, nonatomic) UIImage *image;
 
 @end

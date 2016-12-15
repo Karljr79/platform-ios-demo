@@ -100,13 +100,7 @@
 // Step 2 handle uploading the photo file to Box
 - (void)uploadPhotoToBox:(NSData*)image {
     //start the spinner
-    //[_spinner startAnimating];
-    
-    //    //add a timestamp to the file name to avoid duplicate file names
-    //    NSString *prefixString = @"BoxPlatformUpload";
-    //    time_t unixTime = (time_t) [[NSDate date] timeIntervalSince1970];
-    //    NSString *timestamp = [NSString stringWithFormat:@"%ld", unixTime];
-    //    NSString *fileName = [NSString stringWithFormat:@"%@_%@.jpg", prefixString, timestamp];
+    [_activityIndicator startAnimating];
     
     NSString *fileName = [HelperClass getFileNameWithBaseName:@"BoxPlatformPhotoScan" andExtension:@"jpg"];
     
@@ -122,7 +116,7 @@
             UIViewController *alert = [HelperClass showAlertWithTitle:@"Error" andMessage:@"Sorry, there was an error uploading the file"];
             [self.navigationController presentViewController:alert animated:YES completion:nil];
         } else {
-            //[_spinner stopAnimating];
+            [_activityIndicator stopAnimating];
             NSLog(@"Successfully uploaded file ID: %@", file.modelID);
             
             //now that the upload was successful, set the ocr data for the returned file id
