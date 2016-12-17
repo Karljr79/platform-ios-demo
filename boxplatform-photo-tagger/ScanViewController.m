@@ -8,13 +8,16 @@
 
 #import "ScanViewController.h"
 #import "HelperClass.h"
+#import "FileDetailsViewController.h"
 #import <BoxContentSDK/BoxContentSDK.h>
 #import <TesseractOCR/TesseractOCR.h>
+#import <CoreLocation/CoreLocation.h>
 
 @interface ScanViewController () <UINavigationControllerDelegate,
-                                  UIImagePickerControllerDelegate,
-                                  BOXAPIAccessTokenDelegate,
-                                  G8TesseractDelegate>
+UIImagePickerControllerDelegate,
+BOXAPIAccessTokenDelegate,
+G8TesseractDelegate,
+CLLocationManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextView *textOCRData;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *btnUpload;
@@ -22,8 +25,17 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnSelectImage;
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
 @property (strong, nonatomic) NSString *ocrText;
+@property (strong, nonatomic) NSString *address;
+@property (strong, nonatomic) NSString *latitude;
+@property (strong, nonatomic) NSString *longitude;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic) NSData *imageToUpload;
+@property (strong, nonatomic) BOXFile *boxFile;
+//Location services variables
+@property (strong, nonatomic) CLLocationManager *locationManager;
+@property (strong, nonatomic) CLLocation *location;
+@property (strong, nonatomic) CLGeocoder *geocoder;
+@property (strong, nonatomic) CLPlacemark *placemark;
 
 @property (strong, nonatomic) BOXContentClient *boxClient;
 
@@ -33,6 +45,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //init location manager
+    _locationManager = [[CLLocationManager alloc] init];
+    _geocoder = [[CLGeocoder alloc] init];
     
     // Create a queue to perform recognition operations
     self.operationQueue = [[NSOperationQueue alloc] init];
@@ -46,15 +61,18 @@
     //initialize the Box client
     _boxClient = [BOXContentClient clientForNewSession];
     [_boxClient setAccessTokenDelegate:self];
+    
+    //update location
+    [self getCurrentLocation];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     //update button colors
     UIColor *color = [HelperClass getDefaultColor];
     [_btnScanUsingCamera setBackgroundColor:color];
     [_btnSelectImage setBackgroundColor:color];
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -118,7 +136,7 @@
         } else {
             [_activityIndicator stopAnimating];
             NSLog(@"Successfully uploaded file ID: %@", file.modelID);
-            
+            _boxFile = file;
             //now that the upload was successful, set the ocr data for the returned file id
             [self setBoxMetadataWithFileId:file.modelID];
         }
@@ -129,15 +147,20 @@
 - (void)setBoxMetadataWithFileId:(NSString*)fileId {
     BOXMetadataKeyValue *task = [[BOXMetadataKeyValue alloc] initWithPath:@"ocrpage1" value:_ocrText];
     BOXMetadataKeyValue *task2 = [[BOXMetadataKeyValue alloc] initWithPath:@"ocrversion" value:@"Tesseract"];
-    NSArray *tasks = [[NSArray alloc] initWithObjects:task, task2, nil];
+    BOXMetadataKeyValue *task3 = [[BOXMetadataKeyValue alloc] initWithPath:@"gpslatitude" value:_latitude];
+    BOXMetadataKeyValue *task4 = [[BOXMetadataKeyValue alloc] initWithPath:@"gpslongitude" value:_longitude];
+    BOXMetadataKeyValue *task5 = [[BOXMetadataKeyValue alloc] initWithPath:@"gpsaddress" value:_address];
+    NSArray *tasks = [[NSArray alloc] initWithObjects:task, task2, task3, task4, task5, nil];
     BOXMetadataCreateRequest *metadataCreateRequest = [_boxClient metadataCreateRequestWithFileID:fileId scope:@"enterprise" template:@"ocrdata" tasks:tasks];
     [metadataCreateRequest performRequestWithCompletion:^(BOXMetadata *metadata, NSError *error){
         if(error){
             NSLog(@"Error Setting Metadata: %@", error);
         } else {
-            NSString *str = [_ocrText substringToIndex: 100];
-            UIViewController *alert = [HelperClass showAlertWithTitle:[NSString stringWithFormat:@"File ID: %@", fileId] andMessage:[NSString stringWithFormat:@"OCR Text: %@", _ocrText]];
-            [self.navigationController presentViewController:alert animated:YES completion:nil];
+//            UIViewController *alert = [HelperClass showAlertWithTitle:[NSString stringWithFormat:@"File ID: %@", fileId] andMessage:[NSString stringWithFormat:@"OCR Text Set! /n Address: %@", metadata.info[@"gpsaddress"]]];
+//            [self.navigationController presentViewController:alert animated:YES completion:nil];
+//            NSLog(@"Metadata Set");
+            [self performSegueWithIdentifier:@"ScanFileDetails" sender:self];
+
         }
     }];
 }
@@ -188,6 +211,49 @@
     [self.operationQueue addOperation:operation];
 }
 
+//helper function to get the user's location
+- (void)getCurrentLocation {
+    _locationManager.delegate = self;
+    _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [_locationManager requestWhenInUseAuthorization];
+    
+    [_locationManager startUpdatingLocation];
+}
+
+#pragma mark - CLLocationManagerDelegate
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    NSLog(@"didFailWithError: %@", error);
+    UIViewController *errorAlert = [HelperClass showAlertWithTitle:[NSString stringWithFormat:@"Error"] andMessage:[NSString stringWithFormat:@"Failed to Get Your Location"]];
+    [self.navigationController presentViewController:errorAlert animated:YES completion:nil];}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+    NSLog(@"didUpdateToLocation: %@", newLocation);
+    _location = newLocation;
+    
+    // Stop Location Manager
+    [_locationManager stopUpdatingLocation];
+    
+    _latitude = [NSString stringWithFormat:@"%.8f", _location.coordinate.latitude];
+    _longitude = [NSString stringWithFormat:@"%.8f", _location.coordinate.longitude];
+    
+    // Reverse Geocoding
+    NSLog(@"Resolving the Address");
+    [_geocoder reverseGeocodeLocation:_location completionHandler:^(NSArray *placemarks, NSError *error) {
+        NSLog(@"Found address: %@, error: %@", placemarks, error);
+        if (error == nil && [placemarks count] > 0) {
+            _placemark = [placemarks lastObject];
+            _address = [NSString stringWithFormat:@"%@ %@ %@ %@ %@ %@",
+                        _placemark.subThoroughfare, _placemark.thoroughfare,
+                        _placemark.locality, _placemark.administrativeArea,
+                        _placemark.postalCode, _placemark.country];
+        } else {
+            NSLog(@"Error getting address: %@", error.debugDescription);
+        }
+    } ];
+}
 
 #pragma mark - UIImagePicker
 
@@ -204,6 +270,18 @@
     [self recognizeImageWithTesseract:image];
     //enable button
     _btnUpload.enabled = TRUE;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"ScanFileDetails"])
+    {
+        FileDetailsViewController *fvc = [segue destinationViewController];
+        //pass the file to the next view
+        fvc.boxFile = _boxFile;
+        fvc.placemark = _placemark;
+        fvc.location = _location;
+    }
 }
 
 

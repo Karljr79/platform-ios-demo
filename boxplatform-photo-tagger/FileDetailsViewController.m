@@ -12,11 +12,11 @@
 #import <CoreLocation/CoreLocation.h>
 
 @interface FileDetailsViewController () <BOXAPIAccessTokenDelegate>
-@property (strong, nonatomic) IBOutlet UILabel *labelFileName;
-@property (strong, nonatomic) IBOutlet UILabel *labelGps;
-@property (strong, nonatomic) IBOutlet UITextView *textMetadata;
-@property (strong, nonatomic) IBOutlet UITextView *textAddress;
-@property (strong, nonatomic) IBOutlet UIImageView *imageFile;
+@property (weak, nonatomic) IBOutlet UILabel *labelFileName;
+@property (weak, nonatomic) IBOutlet UILabel *labelGps;
+@property (strong, nonatomic) IBOutlet UILabel *labelCreatedDate;
+@property (weak, nonatomic) IBOutlet UITextView *textMetadata;
+@property (weak, nonatomic) IBOutlet UITextView *textAddress;
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;
 
 
@@ -41,24 +41,28 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     _labelFileName.text = _boxFile.name;
-    _imageFile.image = _image;
     
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MM-dd-YYYY"];
+    
+    _labelCreatedDate.text = [NSString stringWithFormat:@"Created: %@",[dateFormatter stringFromDate:_boxFile.createdDate]];
+    
+    //Get the Metadata to display
     BOXMetadataRequest *mdreq = [_boxClient metadataAllInfoRequestWithFileID:_boxFile.modelID];
     [mdreq performRequestWithCompletion:^(NSArray *metadata, NSError *error){
         if (error) {
             NSLog(@"Error: %@", error);
         } else {
             BOXMetadata *md = metadata[0];
-            NSString *mdText;
             //be sure we are displaying the correct metadata
             if (md.info[@"tags"]){
                 //photo tags
                 _textMetadata.text = md.info[@"tags"];
             } else if (md.info[@"ocrpage1"]) {
                 //OCR scanning
-                mdText = md.info[@"ocrpage1"];
+                _textMetadata.text = md.info[@"ocrpage1"];
             }
-            _labelGps.text = md.info[@"gpslatlong"];
+            _labelGps.text = [NSString stringWithFormat:@"%@,%@", md.info[@"gpslatitude"], md.info[@"gpslongitude"]];
             _textAddress.text = md.info[@"gpsaddress"];
         }
     }];
@@ -87,15 +91,5 @@
     NSLog(@"Box Access token is: %@", [defaults objectForKey:@"box_access_token"]);
     completion([defaults objectForKey:@"box_access_token"], [NSDate dateWithTimeIntervalSinceNow:100], nil);
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

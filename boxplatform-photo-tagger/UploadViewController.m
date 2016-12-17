@@ -203,9 +203,10 @@
     //create array of metadata tasks
     BOXMetadataKeyValue *task = [[BOXMetadataKeyValue alloc] initWithPath:@"tags" value:_tags];
     BOXMetadataKeyValue *task2 = [[BOXMetadataKeyValue alloc] initWithPath:@"imageRecognitionVersion" value:@"Clarifai"];
-    BOXMetadataKeyValue *task3 = [[BOXMetadataKeyValue alloc] initWithPath:@"gpslatlong" value:[NSString stringWithFormat:@"%@ , %@", _latitude, _longitude]];
-    BOXMetadataKeyValue *task4 = [[BOXMetadataKeyValue alloc] initWithPath:@"gpsaddress" value:_address];
-    NSArray *tasks = [[NSArray alloc] initWithObjects:task, task2, task3, task4, nil];
+    BOXMetadataKeyValue *task3 = [[BOXMetadataKeyValue alloc] initWithPath:@"gpslatitude" value:_latitude];
+    BOXMetadataKeyValue *task4 = [[BOXMetadataKeyValue alloc] initWithPath:@"gpslongitude" value:_longitude];
+    BOXMetadataKeyValue *task5 = [[BOXMetadataKeyValue alloc] initWithPath:@"gpsaddress" value:_address];
+    NSArray *tasks = [[NSArray alloc] initWithObjects:task, task2, task3, task4, task5, nil];
     //create metadata request
     BOXMetadataCreateRequest *metadataCreateRequest = [_boxClient metadataCreateRequestWithFileID:fileId scope:@"enterprise" template:@"photouploads" tasks:tasks];
     [metadataCreateRequest performRequestWithCompletion:^(BOXMetadata *metadata, NSError *error){
@@ -297,7 +298,6 @@
         //pass the file to the next view
         fvc.boxFile = _boxFile;
         fvc.placemark = _placemark;
-        fvc.image = _imageView.image;
         fvc.location = _location;
     }
 }

@@ -14,6 +14,5 @@
 @property (strong, nonatomic) BOXFile* boxFile;
 @property (strong, nonatomic) CLPlacemark *placemark;
 @property (strong, nonatomic) CLLocation *location;
-@property (strong, nonatomic) UIImage *image;
 
 @end
