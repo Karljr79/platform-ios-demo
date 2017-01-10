@@ -54,6 +54,13 @@
     return str;
 }
 
+//helper method to format NSDate to String
++(NSString*)formatDate:(NSDate*)date {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MM-dd-YYYY"];
+    return [dateFormatter stringFromDate:date];
+}
+
 //Helper Method to get the default UI color
 +(UIColor*)getDefaultColor {
     NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:@"myColor"];

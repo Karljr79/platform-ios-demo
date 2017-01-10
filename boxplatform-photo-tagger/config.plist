@@ -10,9 +10,5 @@
 	<string>6YBwDBwffiEDJh0o2QVnkNIFbJL3wIZbcnvyQsqZ</string>
 	<key>clarifaiClientId</key>
 	<string>Uj1-OEWZ60HeMAtEBYWwCWAY-YSR_tw4i9JLUTx2</string>
-	<key>boxAppUserId</key>
-	<string>283032981</string>
-	<key>sampleApiUrl</key>
-	<string>https://boxflask-photo-tagger-server-karljr791.c9users.io/api/accesstoken/</string>
 </dict>
 </plist>

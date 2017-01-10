@@ -2,10 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSLocationUsageDescription</key>
-	<string>To add location context to uploaded photos</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>To add location context to uploaded photos</string>
 	<key>Auth0ClientId</key>
 	<string>fgobS6PTRrKiHgU0oojiCeOxJgDdxyB0</string>
 	<key>Auth0Domain</key>
@@ -23,7 +19,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.12</string>
+	<string>1.5</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -38,11 +34,15 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1.12</string>
+	<string>1.5</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>Taking Photos</string>
+	<key>NSLocationUsageDescription</key>
+	<string>To add location context to uploaded photos</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>To add location context to uploaded photos</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Uploading images to Box</string>
 	<key>UILaunchStoryboardName</key>

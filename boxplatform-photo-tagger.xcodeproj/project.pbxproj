@@ -29,6 +29,7 @@
 		86B6FBAF1E0209E8009DA293 /* FileDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B6FBAE1E0209E8009DA293 /* FileDetailsViewController.m */; };
 		86B8C5951E0326B50072C027 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86B8C5941E0326B50072C027 /* MapKit.framework */; };
 		86C9AABC1D3D4C340014E42B /* SearchResultsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C9AABB1D3D4C340014E42B /* SearchResultsTableViewCell.m */; };
+		86D276121E0C9AAB008F1BC5 /* BOXSampleThumbnailsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D276101E0C9AAB008F1BC5 /* BOXSampleThumbnailsHelper.m */; };
 		86FBAC401DECDD430007767D /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = 86FBAC3F1DECDD430007767D /* tessdata */; };
 		86FEAC101DE61DC500D96E42 /* color.png in Resources */ = {isa = PBXBuildFile; fileRef = 86FEAC0F1DE61DC500D96E42 /* color.png */; };
 		9E9822C1AC12F54C249A2A1C /* libPods-boxplatform-photo-tagger.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3540BB865CE270EF56A7E52E /* libPods-boxplatform-photo-tagger.a */; };
@@ -72,6 +73,8 @@
 		86B8C5941E0326B50072C027 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		86C9AABA1D3D4C340014E42B /* SearchResultsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultsTableViewCell.h; sourceTree = "<group>"; };
 		86C9AABB1D3D4C340014E42B /* SearchResultsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultsTableViewCell.m; sourceTree = "<group>"; };
+		86D276101E0C9AAB008F1BC5 /* BOXSampleThumbnailsHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOXSampleThumbnailsHelper.m; sourceTree = "<group>"; };
+		86D276111E0C9AAB008F1BC5 /* BOXSampleThumbnailsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOXSampleThumbnailsHelper.h; sourceTree = "<group>"; };
 		86D78DCA1DC29AF400271BBB /* boxplatform-photo-tagger.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "boxplatform-photo-tagger.entitlements"; sourceTree = "<group>"; };
 		86FBAC3F1DECDD430007767D /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
 		86FEAC0F1DE61DC500D96E42 /* color.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = color.png; sourceTree = "<group>"; };
@@ -101,6 +104,8 @@
 		862C0FE11D42A2FF005FD11C /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				86D276111E0C9AAB008F1BC5 /* BOXSampleThumbnailsHelper.h */,
+				86D276101E0C9AAB008F1BC5 /* BOXSampleThumbnailsHelper.m */,
 				86A8FA0F1D2DBEC50012BD8A /* ClarifaiClient.h */,
 				86A8FA101D2DBEC50012BD8A /* ClarifaiClient.m */,
 				862C0FE21D42A3AB005FD11C /* HelperClass.h */,
@@ -340,6 +345,7 @@
 				868610F51D30535E0054F11D /* SearchResultsTableViewController.m in Sources */,
 				866F05131DECBE1000FBFB8B /* ScanViewController.m in Sources */,
 				862768591DE37160003FF176 /* InitialViewController.m in Sources */,
+				86D276121E0C9AAB008F1BC5 /* BOXSampleThumbnailsHelper.m in Sources */,
 				862C0FE41D42A3AB005FD11C /* HelperClass.m in Sources */,
 				866D02431D2DB30100987B8F /* main.m in Sources */,
 				868610F11D3039610054F11D /* SearchViewController.m in Sources */,

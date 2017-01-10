@@ -8,7 +8,7 @@
 
 #import "SearchResultsTableViewController.h"
 #import "SearchResultsTableViewCell.h"
-#import "FileDetailViewController.h"
+#import "FileDetailsViewController.h"
 #import "HelperClass.h"
 #import <BoxContentSDK/BoxContentSDK.h>
 #import <BoxPreviewSDK/BoxPreviewSDK.h>
@@ -48,11 +48,8 @@
     SearchResultsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"searchResultCell" forIndexPath:indexPath];
     BOXItem *item = self.results[indexPath.row];
     
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"MM-dd-YYYY"];
-    
     cell.labelFileName.text = item.name;
-    cell.labelCreatedDate.text = [NSString stringWithFormat:@"Created: %@",[dateFormatter stringFromDate:item.createdDate]];
+    cell.labelCreatedDate.text = [NSString stringWithFormat:@"Created: %@",[HelperClass formatDate:item.createdDate]];
     
     BOXFileThumbnailRequest *request = [_boxClient fileThumbnailRequestWithID:item.modelID size:128];
     [request performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
@@ -63,7 +60,6 @@
             cell.imageThumbnail.image = image;
         }
     }];
-    
     return cell;
 }
 
@@ -74,7 +70,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    BOXFile *file = self.results[indexPath.row];
+    BOXFile *file = (BOXFile*) self.results[indexPath.row];
     self.selectedItemId = file.modelID;
     
 

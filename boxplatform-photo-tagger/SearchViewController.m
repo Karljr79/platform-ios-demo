@@ -13,8 +13,8 @@
 
 @interface SearchViewController () <UITextFieldDelegate, BOXAPIAccessTokenDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *textInputSearch;
-@property (strong, nonatomic) NSArray *items;
 @property (weak, nonatomic) IBOutlet UIButton *buttonSearch;
+@property (strong, nonatomic) NSArray *items;
 @property (strong, nonatomic) BOXContentClient *boxClient;
 - (IBAction)pressedSearchButton:(id)sender;
 
@@ -73,6 +73,7 @@
     //create search request for photos
     BOXSearchRequest *request = [_boxClient searchRequestWithQuery:searchText inRange:NSMakeRange(0, 200)];
     request.fileExtensions = @[@"jpg", @"png"];
+    request.requestAllItemFields = TRUE;
     
     //send the request
     [request performRequestWithCompletion:^(NSArray *items, NSUInteger totalCount, NSRange range, NSError *error) {

@@ -8,6 +8,7 @@
 
 #import "FileDetailsViewController.h"
 #import <MapKit/MapKit.h>
+#import "HelperClass.h"
 #import <BoxContentSDK/BoxContentSDK.h>
 #import <CoreLocation/CoreLocation.h>
 
@@ -40,12 +41,9 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    //set text labels
     _labelFileName.text = _boxFile.name;
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"MM-dd-YYYY"];
-    
-    _labelCreatedDate.text = [NSString stringWithFormat:@"Created: %@",[dateFormatter stringFromDate:_boxFile.createdDate]];
+    _labelCreatedDate.text = [NSString stringWithFormat:@"Created: %@",[HelperClass formatDate:_boxFile.createdDate]];
     
     //Get the Metadata to display
     BOXMetadataRequest *mdreq = [_boxClient metadataAllInfoRequestWithFileID:_boxFile.modelID];

@@ -15,5 +15,6 @@
 +(NSString*)getBoxAccessToken:(NSString*)auth0Token;
 +(UIColor*)getDefaultColor;
 +(NSString*)getFileNameWithBaseName:(NSString*)baseName andExtension:(NSString*)extension;
++(NSString*)formatDate:(NSDate*)date;
 
 @end

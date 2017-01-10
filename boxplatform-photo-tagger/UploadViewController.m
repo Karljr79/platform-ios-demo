@@ -53,7 +53,6 @@
     _longitude = @"None";
     _address = @"Not Found";
     
-    
     //grab contents of config.plist
     NSURL *file = [[NSBundle mainBundle] URLForResource:@"config" withExtension:@"plist"];
     NSDictionary *plistContent = [NSDictionary dictionaryWithContentsOfURL:file];
@@ -108,7 +107,7 @@
         picker.sourceType = UIImagePickerControllerSourceTypeCamera;
         picker.allowsEditing = YES;
         picker.delegate = self;
-        
+        //present camera interface
         [self presentViewController:picker animated:YES completion:nil];
     } else {
         //if the device has no camera or we're on the simulator, show alert
@@ -213,11 +212,7 @@
         if(error){
             NSLog(@"Error Setting Metadata: %@", error);
         } else {
-//            UIViewController *alert = [HelperClass showAlertWithTitle:[NSString stringWithFormat:@"File ID: %@", fileId] andMessage:[NSString stringWithFormat:@"Metadata: %@", _tags]];
-//            [self.navigationController presentViewController:alert animated:YES completion:nil];
-            
-              [self performSegueWithIdentifier:@"UploadFileDetails" sender:self];
-
+            [self performSegueWithIdentifier:@"UploadFileDetails" sender:self];
         }
     }];
 }
@@ -263,7 +258,7 @@
     _longitude = [NSString stringWithFormat:@"%.8f", _location.coordinate.longitude];
     
     // Reverse Geocoding
-    NSLog(@"Resolving the Address");
+    NSLog(@"Finding Street Address");
     [_geocoder reverseGeocodeLocation:_location completionHandler:^(NSArray *placemarks, NSError *error) {
         NSLog(@"Found address: %@, error: %@", placemarks, error);
         if (error == nil && [placemarks count] > 0) {
