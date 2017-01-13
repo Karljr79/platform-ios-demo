@@ -29,6 +29,7 @@
 @property (strong, nonatomic) ClarifaiClient *clarifaiClient;
 //Location services variables
 @property (strong, nonatomic) CLLocationManager *locationManager;
+@property (strong, nonatomic) IBOutlet UIProgressView *progressView;
 @property (strong, nonatomic) CLLocation *location;
 @property (strong, nonatomic) CLGeocoder *geocoder;
 @property (strong, nonatomic) CLPlacemark *placemark;
@@ -173,6 +174,8 @@
     //start the spinner
     [_spinner startAnimating];
     
+    _progressView.hidden = FALSE;
+    
     //generate filename
     NSString *fileName = [HelperClass getFileNameWithBaseName:@"BoxPlatformPhotoUpload" andExtension:@"jpg"];
     
@@ -182,6 +185,8 @@
     
     //send the request
     [request performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
+        float progress = (float)totalBytesTransferred / (float)totalBytesExpectedToTransfer;
+        [_progressView setProgress:progress animated:YES];
     } completion:^(BOXFile *file, NSError *error) {
         if (error) {
             NSLog(@"Error: %@", error);
@@ -193,6 +198,8 @@
             _boxFile = file;
             //now that the upload was successful, set the metadata for the returned file id
             [self setBoxMetadataWithFileId:file.modelID];
+            //hide progress view
+            _progressView.hidden = TRUE;
         }
     }];
 }

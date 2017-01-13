@@ -72,7 +72,7 @@
     
     //create search request for photos
     BOXSearchRequest *request = [_boxClient searchRequestWithQuery:searchText inRange:NSMakeRange(0, 200)];
-    request.fileExtensions = @[@"jpg", @"png"];
+    request.fileExtensions = @[@"jpg", @"png", @"pdf"];
     request.requestAllItemFields = TRUE;
     
     //send the request

@@ -36,6 +36,8 @@ CLLocationManagerDelegate>
 @property (strong, nonatomic) CLLocation *location;
 @property (strong, nonatomic) CLGeocoder *geocoder;
 @property (strong, nonatomic) CLPlacemark *placemark;
+@property (strong, nonatomic) IBOutlet UIProgressView *progressView;
+
 
 @property (strong, nonatomic) BOXContentClient *boxClient;
 
@@ -120,6 +122,8 @@ CLLocationManagerDelegate>
     //start the spinner
     [_activityIndicator startAnimating];
     
+    _progressView.hidden = FALSE;
+    
     NSString *fileName = [HelperClass getFileNameWithBaseName:@"BoxPlatformPhotoScan" andExtension:@"jpg"];
     
     //prepare the request.  Folder ID is hard coded for demo purposes.  Ideally you would have
@@ -128,6 +132,8 @@ CLLocationManagerDelegate>
     
     //send the request
     [request performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
+        float progress = (float)totalBytesTransferred / (float)totalBytesExpectedToTransfer;
+        [_progressView setProgress:progress animated:YES];
     } completion:^(BOXFile *file, NSError *error) {
         if (error) {
             NSLog(@"Error: %@", error);
@@ -137,6 +143,7 @@ CLLocationManagerDelegate>
             [_activityIndicator stopAnimating];
             NSLog(@"Successfully uploaded file ID: %@", file.modelID);
             _boxFile = file;
+            _progressView.hidden = TRUE;
             //now that the upload was successful, set the ocr data for the returned file id
             [self setBoxMetadataWithFileId:file.modelID];
         }

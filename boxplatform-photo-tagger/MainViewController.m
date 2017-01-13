@@ -30,8 +30,8 @@
     [self.view addSubview:_spinner];
     [_spinner startAnimating];
     
-    _txtUsername.text = self.userProfile.name;
-    _txtAppUserId.text = [self.userProfile.extraInfo objectForKey:@"box_id"];
+    _txtUsername.text = [NSString stringWithFormat:@"Username: %@", self.userProfile.name];
+    _txtAppUserId.text = [NSString stringWithFormat:@"App User ID: %@", [self.userProfile.extraInfo objectForKey:@"box_id"]];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
