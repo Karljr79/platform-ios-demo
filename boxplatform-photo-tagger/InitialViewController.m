@@ -30,6 +30,8 @@
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"myColor"]) {
         NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:@"myColor"];
         [self setColor:[NSKeyedUnarchiver unarchiveObjectWithData:colorData]];
+    } else {
+        [self setColor:[UIColor colorWithRed:103.0f/255.0f green:103.0f/255.0f blue:103.0f/255.0f alpha:1.0]];
     }
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -51,6 +53,8 @@
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"myColor"]) {
         NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:@"myColor"];
         [self setColor:[NSKeyedUnarchiver unarchiveObjectWithData:colorData]];
+    } else {
+        [self setColor:[UIColor colorWithRed:103.0f/255.0f green:103.0f/255.0f blue:103.0f/255.0f alpha:1.0]];
     }
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -116,7 +120,7 @@
     
     FCColorPickerViewController *colorPicker = [FCColorPickerViewController colorPickerWithColor:self.color
                                                                                         delegate:self];
-    colorPicker.tintColor = [UIColor whiteColor];
+    colorPicker.tintColor = [UIColor lightGrayColor];
     [colorPicker setModalPresentationStyle:UIModalPresentationFormSheet];
     [self presentViewController:colorPicker
                        animated:YES

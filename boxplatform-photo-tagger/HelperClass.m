@@ -78,5 +78,22 @@
     return fileName;
 }
 
+//Helper Method to generate file names
++(NSString*)getFileName:(NSString*)baseName {
+    //add a timestamp to the file name to avoid duplicate file names
+    NSString *prefixString = baseName;
+    time_t unixTime = (time_t) [[NSDate date] timeIntervalSince1970];
+    NSString *timestamp = [NSString stringWithFormat:@"%ld", unixTime];
+    NSString *fileName = [NSString stringWithFormat:@"%@_%@", prefixString, timestamp];
+    return fileName;
+}
+
+//Helper to get the folder ID
++(NSString*)getUploadFolderId {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSLog(@"Found Folder ID in defaults: %@", [defaults objectForKey:@"uploadFolder"]);
+    return [defaults objectForKey:@"uploadFolder"];
+}
+
 @end
 

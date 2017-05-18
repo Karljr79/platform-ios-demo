@@ -16,5 +16,7 @@
 +(UIColor*)getDefaultColor;
 +(NSString*)getFileNameWithBaseName:(NSString*)baseName andExtension:(NSString*)extension;
 +(NSString*)formatDate:(NSDate*)date;
++(NSString*)getFileName:(NSString*)baseName;
++(NSString*)getUploadFolderId;
 
 @end

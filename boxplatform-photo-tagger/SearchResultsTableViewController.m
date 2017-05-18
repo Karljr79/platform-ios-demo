@@ -51,15 +51,17 @@
     cell.labelFileName.text = item.name;
     cell.labelCreatedDate.text = [NSString stringWithFormat:@"Created: %@",[HelperClass formatDate:item.createdDate]];
     
-    BOXFileThumbnailRequest *request = [_boxClient fileThumbnailRequestWithID:item.modelID size:128];
-    [request performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
-    } completion:^(UIImage *image, NSError *error) {
-        if(error){
-            NSLog(@"error getting thumbnail: %@", error);
-        } else {
-            cell.imageThumbnail.image = image;
-        }
-    }];
+    cell.imageThumbnail.image = [UIImage imageNamed:@"placeholder.png"];
+    
+//    BOXFileThumbnailRequest *request = [_boxClient fileThumbnailRequestWithID:item.modelID size:128];
+//    [request performRequestWithProgress:^(long long totalBytesTransferred, long long totalBytesExpectedToTransfer) {
+//    } completion:^(UIImage *image, NSError *error) {
+//        if(error){
+//            NSLog(@"error getting thumbnail: %@", error);
+//        } else {
+//            cell.imageThumbnail.image = image;
+//        }
+//    }];
     return cell;
 }
 
